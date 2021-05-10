@@ -1,6 +1,7 @@
 package com.revature.bill_donaldson_p0.screens;
 import com.revature.bill_donaldson_p0.util.AppState;
 import com.revature.bill_donaldson_p0.util.ScreenRouter;
+import com.revature.bill_donaldson_p0.services.addTotransactiontable;
 import com.revature.bill_donaldson_p0.daos.UserDAO;
 import com.revature.bill_donaldson_p0.models.AppUser;
 import com.revature.bill_donaldson_p0.services.Transactions;
@@ -51,9 +52,10 @@ public class TransactionScreen extends Screen {
                     amount_of_change = Double.parseDouble(consoleReader.readLine());
                     System.out.printf("The value = %f",amount_of_change);
                     break;
+
                 }
                     case "2": {
-                        System.out.println("Enter the amount to deposit.");
+                        System.out.println("Enter the amount to Withdrawal.");
                         amount_of_change = Double.parseDouble(consoleReader.readLine());
                         amount_of_change = -amount_of_change;
                         System.out.printf("The value = %f",amount_of_change);

@@ -1,5 +1,8 @@
 package com.revature.bill_donaldson_p0.services;
+import com.revature.bill_donaldson_p0.models.AppUser;
 import com.revature.bill_donaldson_p0.util.ConnectionFactory;
+import com.revature.bill_donaldson_p0.services.addTotransactiontable;
+
 
 import java.io.*;
 import java.sql.*;
@@ -11,6 +14,9 @@ public class depositsWithdrawls {
         String changeAmount = Double.toString(amountChange);
         PreparedStatement pstmt;
         String sql;
+        String ssn;
+
+         addTotransactiontable curr_tran = new addTotransactiontable();
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
@@ -35,7 +41,21 @@ public class depositsWithdrawls {
                 sql = "update get_savings_row set amount = amount + ?" + "values(1,changeAmount)";
                 //System.out.println(sql);
                 //  ResultSet rs = pstmt.executeQuery();
-                pstmt.executeUpdate();
+
+
+                    sql = "select ssn from curr_user";
+                    //String sql = "select * from quizzard.users";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+
+
+                    ResultSet rs = pstmt.executeQuery();
+                    ssn =rs.getString("ssn");
+
+
+                if (amountChange > 0)
+                curr_tran.add_to_table(ssn,"D",amountChange);
+                else
+                    curr_tran.add_to_table(ssn,"W",-amountChange);
             }
 
         } catch (SQLException e) {

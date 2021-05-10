@@ -51,7 +51,7 @@ public class UserDAO {
 
             /* Now I have to save the ID for the current user.*/
 
-            sql = "delete * from public.curr_user";
+           sql = "delete from public.curr_user";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeQuery();
 
