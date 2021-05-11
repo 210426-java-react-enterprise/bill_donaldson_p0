@@ -2,8 +2,6 @@ package com.revature.bill_donaldson_p0.screens;
 
 import com.revature.bill_donaldson_p0.daos.UserDAO;
 import com.revature.bill_donaldson_p0.models.AppUser;
-import com.revature.bill_donaldson_p0.daos.SaveCurrentUser;
-import com.revature.bill_donaldson_p0.util.AppState;
 import com.revature.bill_donaldson_p0.util.ScreenRouter;
 import com.revature.bill_donaldson_p0.services.UserService;
 
@@ -13,10 +11,9 @@ public class LoginScreen extends Screen {
 
     public static String username;
     private UserDAO userDao = new UserDAO();
-    private BufferedReader consoleReader;
-    public static AppState app2 = new AppState();
+    private final BufferedReader consoleReader;
     private ScreenRouter router;
-    private UserService userService;
+    private UserService userService = new UserService(userDao);
 
     //public String username;
     public String password;
@@ -41,8 +38,11 @@ public class LoginScreen extends Screen {
 
             System.out.print("Password: ");
             password = consoleReader.readLine();
-
+            System.out.println("You are about to go to authenticate");
+            System.out.println("The value of username = "+ username);
+            System.out.println("The value of password = " + password);
             AppUser authenticatedUser = userService.authenticate(username, password);
+            System.out.println("You are back from Authenticate user.");
             if (authenticatedUser != null) {
                 System.out.println("Login successful!");
                 router.navigate("/transaction");

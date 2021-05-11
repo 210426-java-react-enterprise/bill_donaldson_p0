@@ -53,7 +53,7 @@ public class UserDAO {
 
             sql = "delete from public.curr_user";
             pstmt = conn.prepareStatement(sql);
-            pstmt.executeQuery();
+            pstmt.executeUpdate();
 
             sql = "insert into public.curr_user (username,ssn)" +
                     "values(?,?)";

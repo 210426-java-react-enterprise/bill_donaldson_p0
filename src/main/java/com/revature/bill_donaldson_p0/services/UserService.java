@@ -16,6 +16,7 @@ public class UserService {
 
     public AppUser authenticate(String username, String password) {
 
+        System.out.println("You are within authenticate");
         if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             throw new InvalidRequestException("Invalid credential values provided!");
         }
@@ -41,7 +42,12 @@ public class UserService {
             throw new ResourcePersistenceException("The provided email is already taken!");
         }
 
-        userDao.save(newUser);
+        if ((isUserValid(newUser)) /*&& (isUserEmailValid(newUser))*/){
+            userDao.save(newUser);
+        }
+        else
+            System.out.println("Did not save user.");
+
 
     }
 
@@ -58,32 +64,33 @@ public class UserService {
 
 
     public boolean isUserEmailValid(AppUser user){
-        /* "Like and regular expressions(???) will be used her.*/
+        /* I'm going to do a very basic check on e-mail.  I'm only going to
+        *  accept *.aol.com emails.  If need be, the logic can be enhanced. **/
 
-        String email;
-        email = user.getEmail();
+
+        String email = user.getEmail();
         int i = 0;
         char temp = 'o';
-        temp = email.charAt(i);
-        //while ((Character.compare(email.charAt(i),'@') == 0) && (i < email.length())) {
-        while ((temp == '@') && (i < email.length())) {
-            temp = email.charAt(1);
-            if (!Character.isDigit(temp) || !Character.isLetter(temp)) {
-                return false;
+        char position8 = email.charAt(email.length()-8);  // Will hold @
+        char position7 = email.charAt(email.length()-7);
+        char position6 = email.charAt(email.length()-6);
+        char position5 = email.charAt(email.length()-5);
+        char position4 = email.charAt(email.length()-4);
+        char position3 = email.charAt(email.length()-3);
+        char position2 = email.charAt(email.length()-2);
+        char position1 = email.charAt(email.length()-1);
 
-            }
-            i = i+1;
-            temp = email.charAt(i);
-        }   if (i == email.length())
-               return false;
-            else if (temp != '@')
-                return false;
-
-            else if (email.charAt(i+3) != '.')
-                return false;
-            else
-                return true;
-        }
+        if ((Character.compare(position8,'@') == 1) &&
+                (Character.compare(position7,'a') == 1) &&
+                (Character.compare(position6,'o') == 1) &&
+                (Character.compare(position5,'l') == 1) &&
+                (Character.compare(position4,'.') == 1) &&
+                (Character.compare(position3,'c') == 1) &&
+                (Character.compare(position2,'o') == 1) &&
+                (Character.compare(position1,'m') == 1))
+            return true;
+        else
+            return false;
 
     }
-
+}

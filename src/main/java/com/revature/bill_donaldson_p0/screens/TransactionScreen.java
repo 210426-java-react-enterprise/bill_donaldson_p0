@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 public class TransactionScreen extends Screen {
 
 
-    private BufferedReader consoleReader;
+    private final BufferedReader consoleReader;
     private ScreenRouter router;
     public String curruser;
     public String transOption;

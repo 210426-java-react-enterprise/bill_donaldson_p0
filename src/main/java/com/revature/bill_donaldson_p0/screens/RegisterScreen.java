@@ -2,17 +2,21 @@ package com.revature.bill_donaldson_p0.screens;
 
 import com.revature.bill_donaldson_p0.daos.UserDAO;
 import com.revature.bill_donaldson_p0.models.AppUser;
+import com.revature.bill_donaldson_p0.services.UserService;
 
 import java.io.BufferedReader;
 
 public class RegisterScreen extends Screen {
 
     private UserDAO userDao = new UserDAO(); // ok for now, but actually gross -- fix later
-    private BufferedReader consoleReader;
+    private final BufferedReader consoleReader;
+    private final UserService userService;
 
-    public RegisterScreen(BufferedReader consoleReader) {
+
+    public RegisterScreen(BufferedReader consoleReader, UserService userService) {
         super("RegisterScreen", "/register");
         this.consoleReader = consoleReader;
+        this.userService = userService;
     }
 
     public void render() {
@@ -57,7 +61,10 @@ public class RegisterScreen extends Screen {
             ssn = consoleReader.readLine();
 
             AppUser newUser = new AppUser(username, password, email, firstName, lastName, age, ssn);
-            userDao.save(newUser);
+
+            System.out.println("You are in Register");
+
+            userService.register(newUser);
 
         } catch (NumberFormatException nfe) {
             // do something about these!

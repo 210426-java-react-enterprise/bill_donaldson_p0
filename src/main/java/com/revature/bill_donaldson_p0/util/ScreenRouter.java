@@ -14,6 +14,7 @@ public class ScreenRouter {
     public void navigate(String route) {
         for (int i = 0; i < screens.size(); i++) {
             Screen screen = screens.get(i);
+
             if (screen.getRoute().equals(route)) {
                 screen.render();
             }
