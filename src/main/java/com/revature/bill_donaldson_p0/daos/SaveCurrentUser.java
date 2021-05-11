@@ -29,9 +29,6 @@ public class SaveCurrentUser {
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

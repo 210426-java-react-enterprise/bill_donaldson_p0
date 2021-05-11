@@ -5,7 +5,6 @@ import com.revature.bill_donaldson_p0.screens.LoginScreen;
 import com.revature.bill_donaldson_p0.screens.RegisterScreen;
 import com.revature.bill_donaldson_p0.screens.WelcomeScreen;
 import com.revature.bill_donaldson_p0.screens.TransactionScreen;
-import com.revature.bill_donaldson_p0.services.Transactions;
 
 
 import java.io.BufferedReader;

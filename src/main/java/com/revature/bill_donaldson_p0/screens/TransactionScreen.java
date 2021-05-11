@@ -1,19 +1,9 @@
 package com.revature.bill_donaldson_p0.screens;
-import com.revature.bill_donaldson_p0.util.AppState;
 import com.revature.bill_donaldson_p0.util.ScreenRouter;
-import com.revature.bill_donaldson_p0.services.addTotransactiontable;
-import com.revature.bill_donaldson_p0.daos.UserDAO;
-import com.revature.bill_donaldson_p0.models.AppUser;
-import com.revature.bill_donaldson_p0.services.Transactions;
-import com.revature.bill_donaldson_p0.screens.LoginScreen;
-import sun.rmi.runtime.Log;
-import java.io.*;
+import com.revature.bill_donaldson_p0.services.CheckTranactionParameters;
 
 
-import javax.security.auth.login.LoginContext;
 import java.io.BufferedReader;
-
-import static com.revature.bill_donaldson_p0.Driver.app;
 
 public class TransactionScreen extends Screen {
 
@@ -23,7 +13,7 @@ public class TransactionScreen extends Screen {
     public String curruser;
     public String transOption;
     public double amount_of_change;
-
+    int get_valid_amount = 1;
 
     public TransactionScreen(BufferedReader consoleReader) {
 
@@ -32,6 +22,7 @@ public class TransactionScreen extends Screen {
 
 
     }
+
 
     public void render(){
 
@@ -45,12 +36,16 @@ public class TransactionScreen extends Screen {
             System.out.println("3) Check Balance");
             System.out.println("4) Get all transactions");
             System.out.print("> ");
+
+
+
+
+
             transOption = consoleReader.readLine();
             switch(transOption) {
                 case "1": {
-                    System.out.println("Enter the amount to deposit.");
-                    amount_of_change = Double.parseDouble(consoleReader.readLine());
-                    System.out.printf("The value = %f",amount_of_change);
+
+
                     break;
 
                 }
@@ -59,8 +54,12 @@ public class TransactionScreen extends Screen {
                         amount_of_change = Double.parseDouble(consoleReader.readLine());
                         amount_of_change = -amount_of_change;
                         System.out.printf("The value = %f",amount_of_change);
+
                         break;
                     }
+                case "3": {
+
+                }
                 default:
                     System.out.println("Invalid selection!");
             }

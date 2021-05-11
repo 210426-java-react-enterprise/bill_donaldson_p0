@@ -3,12 +3,12 @@ package com.revature.bill_donaldson_p0.daos;
 import com.revature.bill_donaldson_p0.models.AppUser;
 import com.revature.bill_donaldson_p0.util.ConnectionFactory;
 
+
 import java.io.*;
 import java.sql.*;
 
 public class UserDAO {
 
-    // TODO (Associate task) Implement me!
     public void save(AppUser newUser) {
 
 
@@ -30,7 +30,7 @@ public class UserDAO {
             pstmt.setString(7,newUser.getSsn());
 
             System.out.println(sql);
-          //  ResultSet rs = pstmt.executeQuery();
+            //  ResultSet rs = pstmt.executeQuery();
             pstmt.executeUpdate();
 
             /* Create an account for the Customer.*/
@@ -51,7 +51,7 @@ public class UserDAO {
 
             /* Now I have to save the ID for the current user.*/
 
-           sql = "delete from public.curr_user";
+            sql = "delete from public.curr_user";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeQuery();
 
@@ -67,9 +67,7 @@ public class UserDAO {
         }
 
 
-    }
-
-
+    }  // This is the end of SAVE.
 
 
     public AppUser findUserByUsernameAndPassword(String username, String password) {
@@ -103,7 +101,55 @@ public class UserDAO {
 
         return user;
 
+    } // This is the end of Finaduser.
+
+    public boolean isUsernameAvailable(String name_to_check){
+
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from public.users where username = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name_to_check);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+       return true;
+
+
+
     }
 
+    public boolean isEmailAvailable(String email) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from public.users where email = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+
+
 }
+
+
 
